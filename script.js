@@ -3,13 +3,21 @@ var quizStart = document.querySelector("#startButton");
 var timeEl = document.querySelector(".timer");
 var secondsLeft =75;
 var quizContainer = document.querySelector(".container");
+var qIterator = 0;
 
-var quest = {
-    qText: "test",
-    qAnswer:["1","2","3","4"],
-    qCorrect: 2,
-    
-  }
+var qPool = [{
+        qText: "Whats my Name?",
+        qAnswer:["howard","Jackie","ditto","jean"],
+        qCorrect: 2,
+    },  {
+        qText: "how old am i",
+        qAnswer:["12","43","11","32"],
+        qCorrect: 4,
+    }];
+
+
+
+
 
 //Starts the timer and intitiae the quiz with function startQuiz 
 quizStart.addEventListener("click", function() {
@@ -23,30 +31,36 @@ quizStart.addEventListener("click", function() {
     startQuiz();
 });
 
-//function that removes all the content in the main tag so we will have a clean slate to add quiz content and answers
+
+
 function startQuiz(){
+    //selector to change the question text 
     var quizQuestion = document.querySelector("#questions")
-    //removes all html elements in section for a clean canvas
-    //creates a div to place all the possible answers for the question
-    //adds a class to the div for styling
+    quizQuestion.textContent = qPool[qIterator].qText;
+
+    // removes all html elements in section from the beginning of the page for a clean canvas
     quizContainer.removeChild(quizContainer.lastElementChild);
+
+    //creating a new section with the class answers for the buttons to sit in
     var answerBox = document.createElement("div");
     answerBox.classList.add("answers");
 
-    //changes questions in the h1 tag
+   
     //creating buttons for each answers in the array and appending it into the div that holds all the answer buttons
     //gives each button a class for styling as well as a data attribute so we can keep track of which is the correct answer
-    //appending the div into the section
-    quizQuestion.textContent = quest.qText;
-    for(i=0; i<quest.qAnswer.length; i++){
+   
+    for(i=0; i<qPool[qIterator].qAnswer.length; i++){
         var answer1 = document.createElement("button");
-        answer1.classList.add("test");
+        answer1.classList.add("answerButton");
         answer1.setAttribute("data-number", i+1);
-        answer1.textContent = quest.qAnswer[i];
+        answer1.textContent = qPool[qIterator].qAnswer[i];
         answerBox.appendChild(answer1);
     }
+
+     //appending the div into the section
     quizContainer.appendChild(answerBox);
 
+    //function to listen to onclick actions and check if answers are correct.
     testButton();
 }
 
@@ -54,34 +68,58 @@ function startQuiz(){
 
 // listens to buttons 
 function testButton(){
+    //selecting on the answer boxs
+    var onClick = document.querySelector(".answers");
 
-    var test1 = document.querySelector(".answers");
     var hrText = document.createElement("hr");
     var alertText = document.createElement("h2");
 
-    test1.addEventListener("click", function(event) {
-        var element = event.target;
-        var boop = element.getAttribute("data-number");
-    
-        if (element.matches(".test")) {
-            if(boop == quest.qCorrect){
-                console.log("correct!");
-                quizContainer.appendChild(hrText);
-                alertText.textContent = "Correct!";
-                quizContainer.appendChild(alertText);
-                
+    //event listener so when user click one of the elements in answer box it will do soemthing.
+    onClick.addEventListener("click", function(event) {
 
+        var element = event.target;
+        var dataNum = element.getAttribute("data-number");
+
+        //checks if the element that is clicked is one of the possible answers
+        //if so it will iterate to the next questions but running loadQuestion function.
+        // it will also show the user if they are right or wrong.
+        if (element.matches(".answerButton")) {
+            if(dataNum == qPool[qIterator].qCorrect){
+                alertText.textContent = "Correct!";
+                qIterator++;
+                loadQuestions();
             } else{
                 secondsLeft = secondsLeft - 10;
-                console.log("wrong");
-                quizContainer.appendChild(hrText);
                 alertText.textContent = "Wrong!";
-                quizContainer.appendChild(alertText);
+                qIterator++;
+                loadQuestions();  
             }
-    
+            //appends the html code so it will show user if they are right or wrong
+            quizContainer.appendChild(hrText);
+            quizContainer.appendChild(alertText);
         }
         
     });
+
+}
+
+function loadQuestions(){
+    if(qIterator<qPool.length){
+
+        var quizQuestion = document.querySelector("#questions")
+        quizQuestion.textContent = qPool[qIterator].qText;
+
+        var answerBox = document.querySelector(".answers");
+        var rm = answerBox.querySelectorAll("button");
+        
+        for(i=0; i<rm.length; i++){
+            rm[i].setAttribute("data-number", i+1);
+            rm[i].textContent = qPool[qIterator].qAnswer[i];
+        }
+
+    } else {
+        console.log("end of questions");
+    }
 
 }
 
