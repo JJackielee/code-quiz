@@ -56,3 +56,29 @@ header p{
     width:200px;
 }
 
+.highscore{
+    margin-top:10%;
+    margin-left:30%
+    text-align: left;
+    padding:0px;
+    font-size:20px;
+}
+
+.highscore h1{
+
+    padding:0px;
+    margin:0px 0px 20px 0px;
+}
+
+.highscore button{
+    height:30px;
+}
+
+.highscore form {
+    width:100%;
+    
+}
+
+.highscore input{
+    text-transform: uppercase;
+}

@@ -1,0 +1,42 @@
+*{
+    margin:0px;
+    padding: 0px;
+}
+
+
+main{
+    width:60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:10%;
+
+}
+
+button{
+    margin-top:10px;
+    background-color: purple;
+    color:white;
+    padding:10px;
+    /* widpx; */
+    /* height:35px; */
+    border-radius: 5px;
+    font-size:100%;
+    cursor: pointer;
+
+}
+
+li{ 
+    list-style: none;
+    background-color:plum;
+    padding:5px;
+    font-size: 150%;
+}
+li:nth-child(odd) {
+    background-color: pink; 
+}
+
+h1{
+    margin-bottom: 10px;
+    font-size: 300%;
+    font-weight: bolder;
+}
