@@ -52,13 +52,16 @@ var qPool = [{
 //Starts the timer and intitiae the quiz with function startQuiz 
 quizStart.addEventListener("click", function() {
     var timerInterval = setInterval(function() {
-        secondsLeft--;
+        
         timeEl.textContent = secondsLeft;
-        if(secondsLeft <= 0 || qIterator >= 8) {
+        if(secondsLeft == 0 || qIterator >= 8) {
           clearInterval(timerInterval);
           sumbitScore();
 
+        } else {
+            secondsLeft--;
         }
+        
       }, 1000);
     startQuiz();
 });
@@ -128,7 +131,7 @@ function testButton(){
                 loadQuestions();
             } else{
                 if(secondsLeft < 10){
-                    secondsLeft = 1;
+                    secondsLeft = 0;
                 } else{
                     secondsLeft = secondsLeft - 10;
                 }

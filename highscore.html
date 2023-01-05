@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./assets/highscore.css" rel="stylesheet" />
-    <title>High Score</title>
+    <link href="./assets/css/highscore.css" rel="stylesheet" />
+    <title>Highscore</title>
 </head>
 <body>
     <main>
         <h1> High Scores</h1>
+        <!-- ul list to put the highscores in. it has the class highscoreContainer so the javascript can pull that query -->
         <ul class="highscoreContainer">
         </ul>
+        <!-- two buttons. one links back to the quiz page and the other one has eventlistener that runs a function in the javascript file when its clicked -->
         <a href="index.html"><button>Go Back</button></a>
         <button class="clickThis">Clear high scores</button>
     </main>
-    <script src="./assets/highscore.js"></script>  
+    <script src="./assets/js/highscore.js"></script>  
 </body>
 </html>
